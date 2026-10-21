@@ -1,36 +1,30 @@
-# Better Me — Fizyczność (PWA na iPhone)
+# Better Me — wersja prywatna
 
-To jest osobny prototyp webowy Better Me. Nie wymaga zmian w repozytorium Habitflow.
+## Co zawiera
+- Dzisiaj: wynik dnia, lista zadań, szybki zapis kroków i masy ciała.
+- Nawyki: edytowalna lista codziennych zachowań.
+- Fizyczność: kroki wpisywane ręcznie, aktywności, masa ciała, obwód pasa, praca fizyczna i dodatkowy przychód.
+- Rozwój: czytanie, medytacja, gitara, deep work i plan na jutro.
+- Finanse: szacowane oszczędności i ręczne dodatkowe przychody.
+- Raporty: tygodniowe i miesięczne podsumowania oraz wykresy.
+- Historia: możliwość wybrania wcześniejszej daty i edycji.
+- Dane: eksport i import JSON, zmiana aktywnego dnia i usuwanie danych.
+- PWA/offline: podstawowy cache statycznych plików.
 
-## Zawartość
-- `index.html` — aplikacja i interfejs
-- `manifest.json` — konfiguracja instalacji na ekranie początkowym
-- `sw.js` — cache/offline shell
-- `assets/icon.svg` i `assets/apple-touch-icon.png` — ikony
-- dane lokalne: `localStorage` w przeglądarce na tym urządzeniu
+## Publikacja
+W repozytorium GitHub `Betterme` umieść `index.html`, `manifest.json`, `sw.js`, `README_PL.md` oraz folder `assets` w katalogu głównym. W Settings → Pages wybierz `Deploy from a branch`, branch `main`, folder `/(root)`.
 
-## Publikacja przez nowe repozytorium GitHub
-1. Na GitHub utwórz **nowe, osobne repozytorium**, np. `BetterMe`.
-2. Nie otwieraj ani nie edytuj repozytorium `Habitflow`.
-3. W nowym repozytorium dodaj pliki i foldery z tego ZIP-a do katalogu głównego: `index.html`, `manifest.json`, `sw.js`, `README_PL.md`, `assets/`.
-4. W repozytorium wybierz **Settings → Pages**.
-5. Ustaw publikację z gałęzi `main`, katalog `/ (root)` i zapisz.
-6. Po opublikowaniu otwórz podany adres `https://...github.io/BetterMe/` w Safari na iPhonie.
-7. W Safari wybierz **Udostępnij → Dodaj do ekranu początkowego**.
+## Dodanie do ekranu iPhone'a
+Otwórz opublikowaną stronę w Safari → przycisk Udostępnij → Dodaj do ekranu początkowego.
 
-## Zasady w prototypie
-- Kroki: poniżej 10 000 = 20 pkt; 10 000–13 999 = 30 pkt; 14 000+ = 40 pkt.
-- Jedna aktywność + kroki: 60 pkt za aktywność + punkty krokowe, maksymalnie 100.
-- Dwie różne aktywności: 100%, niezależnie od kroków.
-- Praca fizyczna to jedna aktywność niezależnie od liczby jednostek; 0–3 jednostki, każda daje 150 zł dodatkowego przychodu.
-- Dzień zamykasz ręcznie i możesz edytować później.
-- Ręcznie wpisane kroki nie są nadpisywane automatycznie.
-- Ważenie można wpisać ręcznie; spadek o każde pełne 0,5 kg daje 30 punktów premii tygodniowej.
-- Raporty tygodniowe i miesięczne bazują na danych zapisanych w tej przeglądarce.
+## Ważne ograniczenia
+- To prywatna aplikacja webowa/PWA, nie natywna aplikacja iOS.
+- Nie ma integracji z Apple Health ani powiadomień push.
+- Dane są przechowywane w localStorage na tym urządzeniu/przeglądarce. Eksportuj kopię zapasową regularnie. Wyczyszczenie danych Safari może usunąć dane aplikacji.
+- Nie przechowuj tu haseł ani danych wrażliwych.
+- Wynik dnia jest umownym wskaźnikiem motywacyjnym, nie diagnozą zdrowotną.
+- Wskaźnik zachowań nie mierzy poziomu dopaminy.
+- To kompletna wersja osobista do testów, ale przed uznaniem jej za stabilną należy przetestować ją na urządzeniu i sprawdzić wszystkie przepływy.
 
-## Ograniczenia, które trzeba znać przed użyciem
-- To PWA, a nie natywna aplikacja iOS.
-- Safari/PWA nie może bezpośrednio odczytać HealthKit / Apple Health. W tej wersji kroki wpisuje się ręcznie. Prawdziwa integracja HealthKit wymaga natywnej aplikacji iOS zbudowanej i podpisanej w środowisku macOS lub odpowiednim zdalnym środowisku budowania.
-- Przypomnienie o ważeniu jest przypomnieniem wewnątrz aplikacji widocznym po otwarciu jej w niedzielę po 7:00. To **nie** jest systemowe powiadomienie push o 7:00. Prawdziwe powiadomienie push wymaga dodatkowej konfiguracji.
-- Dane są przechowywane lokalnie w przeglądarce na tym urządzeniu. Eksportuj kopię JSON z zakładki Historia; wyczyszczenie danych Safari może usunąć dane aplikacji.
-- Ten pakiet nie został jeszcze uruchomiony na Twoim iPhonie. Kod JavaScript został sprawdzony składniowo, ale wygląd i zachowanie trzeba potwierdzić po opublikowaniu w Safari.
+## Zasady punktacji
+Fizyczność: poniżej 10 000 kroków = 20 pkt; 10 000–13 999 = 30 pkt; 14 000+ = 40 pkt. Jedna aktywność daje 60 pkt plus punkty krokowe (maks. 100); dwa różne typy aktywności = 100 pkt. Praca fizyczna jest jednym typem aktywności niezależnie od liczby jednostek; 1 jednostka = 150 zł dodatkowego przychodu, maksymalnie 3 jednostki dziennie. Spadek masy o każde pełne 0,5 kg względem poprzedniego pomiaru to +30 pkt bonusu; wzrost masy nie odejmuje punktów. Bonus wagowy nie jest w tej wersji dodawany do wyniku dnia.
