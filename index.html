@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Better Me">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Better Me — Fizyczność</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151c2e;--panel2:#1d2740;--text:#f5f7fb;--muted:#aab4ca;--line:#2b3650;--green:#65d69a;--blue:#8db7ff;--orange:#ffca78;--red:#ff8d8d}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#10182b 0,#0b1020 38%);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+main{max-width:720px;margin:auto;padding:18px 16px 36px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 18px}.brand{font-size:12px;letter-spacing:.18em;color:var(--green);font-weight:800}.title{font-size:28px;font-weight:800;margin:5px 0}.sub{font-size:13px;color:var(--muted)}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:var(--muted);font-size:12px}
+.card{background:rgba(21,28,46,.96);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 12px 30px #0002}.score-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.score-num{font-size:46px;font-weight:850;letter-spacing:-.05em}.label{font-size:13px;color:var(--muted)}.track{height:9px;background:#2a344c;border-radius:99px;overflow:hidden;margin:12px 0}.fill{height:100%;background:linear-gradient(90deg,#45c986,#9ae6b4);border-radius:99px;width:0;transition:width .2s}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.metric{background:var(--panel2);border-radius:13px;padding:12px}.metric b{font-size:20px;display:block;margin-top:4px}.section-title{font-size:17px;font-weight:750;margin:0 0 12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted);font-size:13px}.activity-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.activity{display:flex;align-items:center;gap:9px;padding:12px 10px;border:1px solid var(--line);border-radius:13px;background:#11182a;min-height:48px;font-size:14px}.activity input{accent-color:var(--green);width:18px;height:18px;flex-shrink:0}.field{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#0e1526;color:var(--text);font:inherit;margin-top:7px}.btn{border:0;border-radius:13px;padding:13px 15px;background:var(--green);color:#082014;font-weight:800;font:inherit;cursor:pointer}.btn.secondary{background:#25314a;color:var(--text);border:1px solid var(--line)}.btn.danger{background:#4a2630;color:#ffdce0}.btn.full{width:100%;margin-top:10px}.btn-row{display:flex;gap:9px;flex-wrap:wrap}.btn-row .btn{flex:1;min-width:120px}.small{font-size:12px;color:var(--muted);line-height:1.45}.work-total{font-size:25px;font-weight:800;color:var(--green)}.tabs{display:flex;gap:7px;position:sticky;top:0;padding:8px 0 12px;background:#0b1020f2;z-index:3}.tab{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px 6px;background:#151c2e;color:var(--muted);font-weight:700}.tab.active{background:#d9fbe8;color:#10331f;border-color:#d9fbe8}.hidden{display:none!important}.report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.report-item{padding:13px;background:var(--panel2);border-radius:14px}.report-item span{font-size:12px;color:var(--muted);display:block}.report-item strong{font-size:22px;display:block;margin-top:5px}.history-item{padding:12px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border:0}.notice{padding:12px;border-radius:12px;background:#342d1e;color:#ffdfa5;font-size:13px;line-height:1.4}.ok{color:var(--green)}.source{display:inline-block;border-radius:8px;padding:4px 7px;background:#25314a;color:var(--muted);font-size:11px}.chart{width:100%;height:180px;display:block;background:#101729;border-radius:14px;margin-top:10px}.foot{font-size:11px;color:#8490a9;text-align:center;margin-top:20px;line-height:1.5}
+@media(min-width:560px){main{padding:24px}.score-num{font-size:54px}}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+ <div><div class="brand">BETTER ME</div><div class="title">Fizyczność</div><div class="sub" id="todayLabel"></div></div>
+ <div class="pill">Wersja testowa</div>
+</header>
+<nav class="tabs">
+ <button class="tab active" data-tab="today">Dzisiaj</button>
+ <button class="tab" data-tab="reports">Raporty</button>
+ <button class="tab" data-tab="history">Historia</button>
+</nav>
+<section id="tab-today">
+ <div class="card">
+  <div class="score-head"><div><div class="label">TWÓJ WYNIK DNIA</div><div class="score-num"><span id="score">20</span><span style="font-size:22px">%</span></div><div class="sub" id="scoreHint">Zapisuj aktywność na bieżąco</div></div><div style="font-size:42px">⚡</div></div>
+  <div class="track"><div class="fill" id="scoreFill"></div></div>
+  <div class="metrics">
+   <div class="metric"><span class="label">Kroki</span><b id="stepsMetric">—</b><span class="small" id="stepSource">Brak wpisu</span></div>
+   <div class="metric"><span class="label">Treningi</span><b id="activityCount">0</b><span class="small">różne aktywności</span></div>
+  </div>
+ </div>
+ <div class="card">
+  <div class="row"><h2 class="section-title">Kroki</h2><span class="source" id="sourceBadge">Nie wpisano</span></div>
+  <div class="notice">Wersja iPhone/PWA nie może bezpośrednio odczytać Apple Health. Na tym etapie wpisujesz kroki ręcznie. Nie nadpisujemy Twojego wpisu automatycznie.</div>
+  <label class="label" for="stepsInput">Liczba kroków</label><input class="field" id="stepsInput" type="number" min="0" step="1" inputmode="numeric" placeholder="np. 12500">
+  <button class="btn full" id="saveSteps">Zapisz kroki ręcznie</button>
+  <div class="small" style="margin-top:8px">Punktacja: poniżej 10 000 = 20 pkt; 10 000–13 999 = 30 pkt; od 14 000 = 40 pkt.</div>
+ </div>
+ <div class="card">
+  <h2 class="section-title">Treningi i aktywności</h2>
+  <div class="activity-list" id="activityList"></div>
+  <p class="small">Jedna aktywność + 14 000 kroków daje 100%. Dwie różne aktywności dają 100% niezależnie od kroków. Ta sama aktywność nie liczy się drugi raz.</p>
+ </div>
+ <div class="card">
+  <div class="row"><h2 class="section-title">Praca fizyczna</h2><span class="source">150 zł / jednostkę</span></div>
+  <label class="label" for="workUnits">Liczba jednostek (0–3)</label>
+  <select id="workUnits" class="field"><option value="0">0 jednostek</option><option value="1">1 jednostka</option><option value="2">2 jednostki</option><option value="3">3 jednostki</option></select>
+  <div class="row" style="margin-top:13px"><div><div class="label">Dodatkowy przychód</div><div class="work-total" id="workIncome">0 zł</div></div><div class="muted" id="workActivityHint">Nie zaliczono pracy</div></div>
+  <p class="small">Każda jednostka = 150 zł. Praca fizyczna liczy się jako jeden rodzaj aktywności bez względu na liczbę jednostek.</p>
+ </div>
+ <div class="card">
+  <div class="row"><h2 class="section-title">Masa ciała</h2><span class="source">Niedziela</span></div>
+  <div class="row"><div><div class="label">Ostatni pomiar</div><div style="font-size:24px;font-weight:800" id="latestWeight">Brak danych</div></div><button class="btn secondary" id="addWeight">Dodaj pomiar</button></div>
+  <div id="weightBonusLine" class="small" style="margin-top:10px"></div>
+  <input class="field hidden" id="weightInput" type="number" min="1" max="500" step="0.1" inputmode="decimal" placeholder="Masa w kg">
+  <button class="btn full hidden" id="saveWeight">Zapisz pomiar</button>
+ </div>
+ <div class="card">
+  <div class="row"><div><h2 class="section-title" style="margin-bottom:4px">Zakończenie dnia</h2><div class="small" id="dayStatus">Dzień jest w trakcie.</div></div><span id="closedBadge" class="source">Otwarty</span></div>
+  <button class="btn full" id="closeDay">Zakończ dzień</button>
+  <div class="small" style="margin-top:8px">Zamknięty dzień możesz edytować w dowolnym momencie. Zapisane dane przeliczają raporty automatycznie.</div>
+ </div>
+</section>
+<section id="tab-reports" class="hidden">
+ <div class="card"><div class="row"><h2 class="section-title">Raport tygodniowy</h2><span class="source">Pon.–niedz.</span></div><div class="report-grid" id="weekReport"></div><p class="small">Średnia liczona z dni, w których zapisano kroki lub aktywność. Premia za wagę jest osobna od dziennego wyniku.</p></div>
+ <div class="card"><h2 class="section-title">Trend masy ciała</h2><div id="weightTrendText" class="small">Dodaj kolejne pomiary, aby zobaczyć trend.</div><svg id="weightChart" class="chart" viewBox="0 0 600 180" preserveAspectRatio="none" role="img" aria-label="Wykres masy ciała"></svg></div>
+ <div class="card"><h2 class="section-title">Raport miesięczny</h2><div class="report-grid" id="monthReport"></div><p class="small">Dane demonstracyjne nie są używane — raporty bazują na Twoich zapisach.</p></div>
+</section>
+<section id="tab-history" class="hidden">
+ <div class="card"><div class="row"><h2 class="section-title">Historia dni</h2><input id="editDate" type="date" class="field" style="width:auto;margin:0;max-width:165px"></div><p class="small">Wybierz datę, aby edytować dowolny dzień.</p><div id="historyList"></div></div>
+ <div class="card"><h2 class="section-title">Eksport danych</h2><p class="small">Pobierz kopię lokalnych danych, aby zachować ją poza aplikacją.</p><button class="btn secondary full" id="exportData">Eksportuj dane JSON</button><label class="btn secondary full" style="display:block;text-align:center;margin-top:9px">Importuj kopię JSON<input type="file" id="importData" accept="application/json" class="hidden"></label></div>
+</section>
+<div class="foot">Better Me • prototyp PWA • dane są zapisywane lokalnie w tej przeglądarce na tym urządzeniu.</div>
+</main>
+<script>
+const KEY='betterme.physicality.v1';
+const activities=[['gym','Siłownia','🏋️'],['bike','Rower','🚴'],['swim','Basen','🏊'],['mountains','Góry','⛰️'],['football','Piłka','⚽']];
+let db=loadDB(), selectedDate=localDate(new Date());
+function loadDB(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},weights:[]}}catch(e){return {days:{},weights:[]}}}
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(db))}
+function localDate(d){const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)}
+function dayKey(date=selectedDate){return date}
+function getDay(date=selectedDate){if(!db.days[date])db.days[date]={date,steps:null,stepSource:'Brak danych',activities:[],workUnits:0,closed:false,updatedAt:new Date().toISOString()};return db.days[date]}
+function fmtDate(s){return new Date(s+'T12:00:00').toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'})}
+function stepPoints(n){if(n===null||n===undefined)return 0;return n<10000?20:n<14000?30:40}
+function effectiveActivities(d){let a=[...(d.activities||[])];if((d.workUnits||0)>0&&!a.includes('work'))a.push('work');return a}
+function score(d){const n=effectiveActivities(d).length;const sp=stepPoints(d.steps);if(n>=2)return 100;if(n===1)return Math.min(100,sp+60);return sp}
+function weightBonus(prev,cur){if(!(cur<prev))return 0;return Math.floor((prev-cur)/0.5+1e-8)*30}
+function allDays(){return Object.values(db.days).sort((a,b)=>a.date.localeCompare(b.date))}
+function weekStart(dateStr){const d=new Date(dateStr+'T12:00:00');const wd=(d.getDay()+6)%7;d.setDate(d.getDate()-wd);return localDate(d)}
+function weekDays(dateStr){const start=weekStart(dateStr);const s=new Date(start+'T12:00:00');return allDays().filter(d=>{const x=new Date(d.date+'T12:00:00');return x>=s&&x<new Date(s.getTime()+7*86400000)})}
+function monthDays(dateStr){return allDays().filter(d=>d.date.slice(0,7)===dateStr.slice(0,7))}
+function activeDay(d){return d.steps!==null||effectiveActivities(d).length>0||d.closed}
+function setTab(name){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));['today','reports','history'].forEach(t=>document.getElementById('tab-'+t).classList.toggle('hidden',t!==name));if(name==='reports')renderReports();if(name==='history')renderHistory()}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+function render(){const d=getDay();document.getElementById('todayLabel').textContent=fmtDate(selectedDate);document.getElementById('score').textContent=score(d);document.getElementById('scoreFill').style.width=score(d)+'%';document.getElementById('scoreHint').textContent=effectiveActivities(d).length>=2?'Dwie różne aktywności — cel osiągnięty':score(d)===100?'Cel dzienny osiągnięty':'Wynik aktualizuje się po zapisaniu danych';
+document.getElementById('stepsMetric').textContent=d.steps===null?'—':d.steps.toLocaleString('pl-PL');document.getElementById('stepSource').textContent=d.stepSource;document.getElementById('sourceBadge').textContent=d.stepSource;document.getElementById('stepsInput').value=d.steps??'';document.getElementById('activityCount').textContent=effectiveActivities(d).length;document.getElementById('workUnits').value=d.workUnits||0;document.getElementById('workIncome').textContent=((d.workUnits||0)*150).toLocaleString('pl-PL')+' zł';document.getElementById('workActivityHint').textContent=(d.workUnits||0)>0?'Praca zaliczona jako 1 aktywność':'Nie zaliczono pracy';document.getElementById('dayStatus').textContent=d.closed?'Dzień zapisany — nadal możesz go edytować.':'Dzień jest w trakcie.';document.getElementById('closedBadge').textContent=d.closed?'Zamknięty':'Otwarty';document.getElementById('closeDay').textContent=d.closed?'Zapisz zmiany dnia':'Zakończ dzień';
+document.getElementById('activityList').innerHTML=activities.map(([id,name,emoji])=>`<label class="activity"><input type="checkbox" data-activity="${id}" ${d.activities.includes(id)?'checked':''}><span>${emoji} ${name}</span></label>`).join('');
+document.querySelectorAll('[data-activity]').forEach(el=>el.addEventListener('change',()=>{const day=getDay();if(el.checked&&!day.activities.includes(el.dataset.activity))day.activities.push(el.dataset.activity);if(!el.checked)day.activities=day.activities.filter(x=>x!==el.dataset.activity);touch(day);render()}));
+const latest=db.weights.slice().sort((a,b)=>b.date.localeCompare(a.date))[0];document.getElementById('latestWeight').textContent=latest?latest.kg.toLocaleString('pl-PL',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg':'Brak danych';document.getElementById('weightInput').classList.add('hidden');document.getElementById('saveWeight').classList.add('hidden');document.getElementById('weightBonusLine').textContent=weightBonusText();maybeReminder();saveDB();}
+function touch(d){d.updatedAt=new Date().toISOString();saveDB()}
+document.getElementById('saveSteps').addEventListener('click',()=>{const raw=document.getElementById('stepsInput').value;const n=Number(raw);if(raw===''||!Number.isInteger(n)||n<0){alert('Wpisz prawidłową liczbę kroków.');return}const d=getDay();d.steps=n;d.stepSource='Ręcznie';touch(d);render()});
+document.getElementById('workUnits').addEventListener('change',e=>{const d=getDay();d.workUnits=Math.max(0,Math.min(3,Number(e.target.value)||0));touch(d);render()});
+document.getElementById('closeDay').addEventListener('click',()=>{const d=getDay();d.closed=true;touch(d);render();alert('Dzień zapisany. Możesz go edytować w dowolnym momencie.')});
+document.getElementById('addWeight').addEventListener('click',()=>{document.getElementById('weightInput').classList.remove('hidden');document.getElementById('saveWeight').classList.remove('hidden');document.getElementById('weightInput').focus()});
+document.getElementById('saveWeight').addEventListener('click',()=>{const n=Number(document.getElementById('weightInput').value.replace(',','.'));if(!Number.isFinite(n)||n<=0||n>=500){alert('Wpisz prawidłową masę ciała.');return}const i=db.weights.findIndex(w=>w.date===selectedDate);if(i>=0)db.weights[i].kg=n;else db.weights.push({date:selectedDate,kg:n});saveDB();render();renderReports()});
+function sortedWeights(){return db.weights.slice().sort((a,b)=>a.date.localeCompare(b.date))}
+function weightBonusText(){const ws=sortedWeights();const i=ws.findIndex(w=>w.date===selectedDate);if(i<=0)return 'Premia za spadek masy pojawi się po kolejnym pomiarze.';const prev=ws[i-1],cur=ws[i],b=weightBonus(prev.kg,cur.kg);return `Zmiana od poprzedniego pomiaru: ${(cur.kg-prev.kg>0?'+':'')+(cur.kg-prev.kg).toLocaleString('pl-PL',{maximumFractionDigits:1})} kg • premia: ${b} pkt`}
+function maybeReminder(){const now=new Date();if(now.getDay()===0&&now.getHours()>=7){const key='betterme.weightReminder.'+localDate(now);if(!localStorage.getItem(key)){const done=db.weights.some(w=>w.date===localDate(now));if(!done){document.getElementById('weightBonusLine').textContent='🔔 Niedzielne przypomnienie: czas na ważenie i wpisanie wyniku.';localStorage.setItem(key,'shown')}}}}
+function reportHTML(items){return items.map(([a,b])=>`<div class="report-item"><span>${a}</span><strong>${b}</strong></div>`).join('')}
+function renderReports(){const wd=weekDays(selectedDate).filter(activeDay), md=monthDays(selectedDate).filter(activeDay);const avg=a=>a.length?Math.round(a.reduce((s,d)=>s+score(d),0)/a.length):0;const sumSteps=a=>a.reduce((s,d)=>s+(d.steps||0),0);const workouts=a=>a.reduce((s,d)=>s+effectiveActivities(d).length,0);const units=a=>a.reduce((s,d)=>s+(d.workUnits||0),0);const change=weightChangeInRange(weekStart(selectedDate),selectedDate);document.getElementById('weekReport').innerHTML=reportHTML([['Średni wynik',avg(wd)+'%'],['Suma kroków',sumSteps(wd).toLocaleString('pl-PL')],['Dni z treningiem',wd.filter(d=>effectiveActivities(d).length).length],['Treningi / aktywności',workouts(wd)],['Jednostki pracy',units(wd)],['Zarobek z pracy',(units(wd)*150).toLocaleString('pl-PL')+' zł'],['Zmiana masy',change===null?'—':(change>0?'+':'')+change.toLocaleString('pl-PL')+' kg'],['Premia za wagę',weeklyWeightBonus(selectedDate)+' pkt']]);
+document.getElementById('monthReport').innerHTML=reportHTML([['Średni wynik',avg(md)+'%'],['Suma kroków',sumSteps(md).toLocaleString('pl-PL')],['Dni z aktywnością',md.filter(d=>effectiveActivities(d).length).length],['Aktywności',workouts(md)],['Jednostki pracy',units(md)],['Zarobek z pracy',(units(md)*150).toLocaleString('pl-PL')+' zł'],['Pomiary wagi',db.weights.filter(w=>w.date.slice(0,7)===selectedDate.slice(0,7)).length],['Dni zapisane',md.length]]);
+renderWeightChart();}
+function weightChangeInRange(start,end){const ws=sortedWeights();const inRange=ws.filter(w=>w.date>=start&&w.date<=end);if(!inRange.length)return null;const prev=ws.filter(w=>w.date<start).slice(-1)[0];if(!prev)return null;return Math.round((inRange[inRange.length-1].kg-prev.kg)*10)/10}
+function weeklyWeightBonus(date){const start=weekStart(date);const ws=sortedWeights();const curr=ws.filter(w=>w.date>=start&&w.date<=date);const prev=ws.filter(w=>w.date<start).slice(-1)[0];if(!prev||!curr.length)return 0;return weightBonus(prev.kg,curr[curr.length-1].kg)}
+function renderWeightChart(){const ws=sortedWeights(),svg=document.getElementById('weightChart');if(ws.length<2){svg.innerHTML='<text x="300" y="90" fill="#aab4ca" text-anchor="middle" font-size="16">Dodaj co najmniej 2 pomiary</text>';document.getElementById('weightTrendText').textContent='Trend pojawi się po zapisaniu co najmniej dwóch pomiarów.';return}const vals=ws.map(w=>w.kg),min=Math.min(...vals)-.5,max=Math.max(...vals)+.5,range=max-min||1;const pts=ws.map((w,i)=>({x:35+i*(530/(ws.length-1)),y:150-(w.kg-min)/range*120,kg:w.kg,date:w.date}));const points=pts.map(p=>`${p.x},${p.y}`).join(' ');const trendStart=pts[0],trendEnd=pts[pts.length-1];svg.innerHTML=`<line x1="30" y1="150" x2="570" y2="150" stroke="#34415d"/><polyline points="${points}" fill="none" stroke="#8db7ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#65d69a"/>`).join('')}<line x1="${trendStart.x}" y1="${trendStart.y}" x2="${trendEnd.x}" y2="${trendEnd.y}" stroke="#ffca78" stroke-width="2" stroke-dasharray="6 5"/>`;const diff=ws[ws.length-1].kg-ws[0].kg;document.getElementById('weightTrendText').textContent=`Zmiana od pierwszego pomiaru: ${diff>0?'+':''}${diff.toLocaleString('pl-PL',{maximumFractionDigits:1})} kg. Niebieska linia pokazuje pomiary, żółta — prosty trend od pierwszego do ostatniego pomiaru.`}
+function renderHistory(){const el=document.getElementById('historyList');const list=allDays().slice().reverse();el.innerHTML=list.length?list.map(d=>`<div class="history-item"><div class="row"><div><b>${fmtDate(d.date)}</b><div class="small">${d.steps===null?'Brak kroków':d.steps.toLocaleString('pl-PL')+' kroków'} · ${effectiveActivities(d).length} aktywności · ${(d.workUnits||0)*150} zł</div></div><div style="text-align:right"><b>${score(d)}%</b><div><button class="btn secondary" style="padding:7px 10px;margin-top:6px" data-edit="${d.date}">Edytuj</button></div></div></div></div>`).join(''):'<p class="small">Nie masz jeszcze zapisanych dni.</p>';document.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>{selectedDate=b.dataset.edit;render();setTab('today')}));document.getElementById('editDate').value=selectedDate}
+document.getElementById('editDate').addEventListener('change',e=>{if(e.target.value){selectedDate=e.target.value;render();setTab('today')}});
+document.getElementById('exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='betterme-backup-'+localDate(new Date())+'.json';a.click();URL.revokeObjectURL(url)});
+document.getElementById('importData').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text());if(!parsed.days||!Array.isArray(parsed.weights))throw Error('bad');db=parsed;saveDB();render();renderReports();renderHistory();alert('Dane zaimportowane.')}catch(err){alert('Nie udało się wczytać kopii. Wybierz plik JSON z Better Me.')}e.target.value=''});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+render();
+</script>
+</body>
+</html>
