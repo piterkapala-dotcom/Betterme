@@ -1,30 +1,9 @@
-# Better Me — wersja prywatna
+# Better Me — GitHub Pages
+1. Rozpakuj ZIP.
+2. Wgraj **zawartość** folderu do głównego katalogu repozytorium `BetterMe` (index.html ma być w katalogu głównym).
+3. GitHub → Settings → Pages → Build and deployment: Deploy from a branch, `main`, `/ (root)`, Save.
+4. Otwórz adres GitHub Pages repozytorium. Jeśli widzisz starą wersję, zamknij kartę i otwórz ponownie.
 
-## Co zawiera
-- Dzisiaj: wynik dnia, lista zadań, szybki zapis kroków i masy ciała.
-- Nawyki: edytowalna lista codziennych zachowań.
-- Fizyczność: kroki wpisywane ręcznie, aktywności, masa ciała, obwód pasa, praca fizyczna i dodatkowy przychód.
-- Rozwój: czytanie, medytacja, gitara, deep work i plan na jutro.
-- Finanse: szacowane oszczędności i ręczne dodatkowe przychody.
-- Raporty: tygodniowe i miesięczne podsumowania oraz wykresy.
-- Historia: możliwość wybrania wcześniejszej daty i edycji.
-- Dane: eksport i import JSON, zmiana aktywnego dnia i usuwanie danych.
-- PWA/offline: podstawowy cache statycznych plików.
+Dane zapisują się lokalnie w przeglądarce i nie synchronizują się automatycznie między urządzeniami. Używaj Eksportuj kopię i przechowuj plik JSON poza telefonem. Import zastępuje aktualne dane.
 
-## Publikacja
-W repozytorium GitHub `Betterme` umieść `index.html`, `manifest.json`, `sw.js`, `README_PL.md` oraz folder `assets` w katalogu głównym. W Settings → Pages wybierz `Deploy from a branch`, branch `main`, folder `/(root)`.
-
-## Dodanie do ekranu iPhone'a
-Otwórz opublikowaną stronę w Safari → przycisk Udostępnij → Dodaj do ekranu początkowego.
-
-## Ważne ograniczenia
-- To prywatna aplikacja webowa/PWA, nie natywna aplikacja iOS.
-- Nie ma integracji z Apple Health ani powiadomień push.
-- Dane są przechowywane w localStorage na tym urządzeniu/przeglądarce. Eksportuj kopię zapasową regularnie. Wyczyszczenie danych Safari może usunąć dane aplikacji.
-- Nie przechowuj tu haseł ani danych wrażliwych.
-- Wynik dnia jest umownym wskaźnikiem motywacyjnym, nie diagnozą zdrowotną.
-- Wskaźnik zachowań nie mierzy poziomu dopaminy.
-- To kompletna wersja osobista do testów, ale przed uznaniem jej za stabilną należy przetestować ją na urządzeniu i sprawdzić wszystkie przepływy.
-
-## Zasady punktacji
-Fizyczność: poniżej 10 000 kroków = 20 pkt; 10 000–13 999 = 30 pkt; 14 000+ = 40 pkt. Jedna aktywność daje 60 pkt plus punkty krokowe (maks. 100); dwa różne typy aktywności = 100 pkt. Praca fizyczna jest jednym typem aktywności niezależnie od liczby jednostek; 1 jednostka = 150 zł dodatkowego przychodu, maksymalnie 3 jednostki dziennie. Spadek masy o każde pełne 0,5 kg względem poprzedniego pomiaru to +30 pkt bonusu; wzrost masy nie odejmuje punktów. Bonus wagowy nie jest w tej wersji dodawany do wyniku dnia.
+Papierosy nie wpływają na punktację. Oszczędność z papierosów jest wyliczana względem bazowego poziomu 40 sztuk dziennie: (40 − liczba wypalonych, minimum 0) × cena paczki ÷ 20. Domyślna cena paczki to 25 zł i można ją zmienić. Kawa do 3 dziennie daje 100 pkt w komponencie kawy, powyżej celu wynik spada o 20 pkt za każdą dodatkową kawę. Dopamina uwzględnia kawę i sześć nawyków ograniczających. Zdrowie łączy sen, posiłki, post, higienę i wodę. Fizyczność: 10–13 999 kroków = 30 pkt, 14 000+ = 40 pkt, od 1 000 = 20 pkt; jedna aktywność daje minimum 60 pkt, dwa różne typy = 100 pkt. Każda jednostka pracy fizycznej (maks. 3) = 150 zł dodatkowego przychodu. Wyniki to wskaźniki motywacyjne, nie ocena medyczna.
